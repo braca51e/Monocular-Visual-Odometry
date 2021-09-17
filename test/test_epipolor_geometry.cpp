@@ -32,12 +32,13 @@ int main(int argc, char **argv)
     cv::Mat K_fr1 = (cv::Mat_<double>(3, 3) << 517.3, 0, 325.1, 0, 516.5, 249.7, 0, 0, 1); // fr1 dataset
     cv::Mat K_fr2 = (cv::Mat_<double>(3, 3) << 520.9, 0, 325.1, 0, 521.0, 249.7, 0, 0, 1); // fr2 dataset
     cv::Mat K_mtb = (cv::Mat_<double>(3, 3) << 615, 0, 320, 0, 615, 240, 0, 0, 1);         // fr2 dataset
+    cv::Mat K_tsm = (cv::Mat_<double>(3, 3) << 1796.40395, 0, 1140.166, 0, 1796.40395, 382.938, 0, 0, 1); // tastemade dataset
     cv::Mat K;
 
     // read in images
     string img_file1, img_file2;
-    string folder = "data/test_data/";
-    int IDX_TEST_CASE = 1;
+    string folder = "data/tastemade/";
+    int IDX_TEST_CASE = 4;
 
     // Feature extraction and matching's parameters
     const string kConfigFile = "config/config.yaml";
@@ -74,12 +75,20 @@ int main(int argc, char **argv)
         img_file2 = "fr2_1_2.png";
         K = K_fr2;
     }
+    else if (IDX_TEST_CASE == 4) // keypoints are almost on the same plane.
+    {
+        img_file1 = "RAW__CC__4801909d-en_us-video-46060-mtt-906-homagekoreangrandma-012721-h264_00504.png";
+        img_file2 = "RAW__CC__4801909d-en_us-video-46060-mtt-906-homagekoreangrandma-012721-h264_00504.png";
+        K = K_tsm;
+    }
 
     //====================================== Main program starts =========================================
 
     // Read image
     cv::Mat img_1 = cv::imread(folder + img_file1);
     cv::Mat img_2 = cv::imread(folder + img_file2);
+
+    cout << folder + img_file1 << endl;
 
     // Extract keypoints and features. Match keypoints
     vector<cv::KeyPoint> keypoints_1, keypoints_2;
@@ -113,13 +122,16 @@ int main(int argc, char **argv)
         is_print_res, is_calc_homo, is_frame_cam2_to_cam1);
     cout << "Best solution is: " << best_sol << endl;
 
+    cout << "Best R: " << list_R[best_sol] << endl;
+    cout << "Best t: " << list_t[best_sol] << endl;
+
     // Compute [epipolar error] and [trigulation error on norm plane] for the 3 solutions (E, H1, H2)
     geometry::helperEvalEppiAndTriangErrors(
         keypoints_1, keypoints_2, list_matches,
         sols_pts3d_in_cam1_by_triang,
         list_R, list_t, list_normal,
         K,
-        false); // print result
+        true); // print result
 
     // plot image
     cv::Mat Idst;
@@ -140,7 +152,7 @@ int main(int argc, char **argv)
     cv::waitKey(1);
 
     // -- Print error
-    int cnt = 0;
+    /*int cnt = 0;
     for (const cv::DMatch &d : list_matches[0])
     {
         cv::Point2f p1 = keypoints_1[d.queryIdx].pt;
@@ -155,7 +167,7 @@ int main(int argc, char **argv)
             cout << endl;
         }
         cnt++;
-    }
+    }*/
 
     cv::waitKey();
     cv::destroyAllWindows();
