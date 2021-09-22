@@ -15,7 +15,7 @@
 
 using namespace std;
 using namespace cv;
-using namespace geometry;
+using namespace my_slam;
 
 int main ( int argc, char** argv )
 {
@@ -37,12 +37,12 @@ int main ( int argc, char** argv )
     cv::Mat descriptors_1, descriptors_2;
     string filename = "config/config.yaml";
     basics::Config::setParameterFile(filename);
-    calcKeyPoints(img_1, keypoints_1); // Choose the config file before running this
-    calcKeyPoints(img_2, keypoints_2);
+    geometry::calcKeyPoints(img_1, keypoints_1); // Choose the config file before running this
+    geometry::calcKeyPoints(img_2, keypoints_2);
     cout << "Number of keypoints: " << keypoints_1.size() << ", " << keypoints_2.size() << endl;
-    calcDescriptors(img_1, keypoints_1, descriptors_1);
-    calcDescriptors(img_2, keypoints_2, descriptors_2);
-    matchFeatures(descriptors_1, descriptors_2, matches,
+    geometry::calcDescriptors(img_1, keypoints_1, descriptors_1);
+    geometry::calcDescriptors(img_2, keypoints_2, descriptors_2);
+    geometry::matchFeatures(descriptors_1, descriptors_2, matches,
         true); // print result
 
 
@@ -55,7 +55,7 @@ int main ( int argc, char** argv )
         if ( d == 0 )   // bad depth
             continue;
         float dd = d/1000.0; // mm -> m
-        Point2d p1_norm = pixel2CamNormPlane ( keypoints_1[m.queryIdx].pt, K );// point's pos on cam1's normalized plane
+        Point2d p1_norm = geometry::pixel2CamNormPlane ( keypoints_1[m.queryIdx].pt, K );// point's pos on cam1's normalized plane
         pts_3d.push_back ( cv::Point3f ( p1_norm.x*dd, p1_norm.y*dd, dd ) );
         pts_2d.push_back ( keypoints_2[m.trainIdx].pt );
     }
@@ -68,7 +68,7 @@ int main ( int argc, char** argv )
     Rodrigues ( R_vec, R );
 
     // Get cam1 to cam2
-    cv::Mat T_cam1_to_cam2 = convertRt2T(R,t).inv();
+    cv::Mat T_cam1_to_cam2 = basics::convertRt2T(R,t).inv();
 
     // Print result
     printf("Print result of PnP:\n");

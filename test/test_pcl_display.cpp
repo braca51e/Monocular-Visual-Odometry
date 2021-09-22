@@ -17,7 +17,7 @@ using namespace std;
 using namespace cv;
 // using namespace Eigen;
 
-using namespace display;
+using namespace my_slam;
 
 int main()
 {
@@ -29,8 +29,8 @@ int main()
     double rot_axis_x = -0.5, rot_axis_y = 0, rot_axis_z = 0;
     string viewer_name = "my pcl viewer";
     display::PclViewer::Ptr pcl_displayer(
-        new display::PclViewer(
-            viewer_name, x, y, z, rot_axis_x, rot_axis_y, rot_axis_z));
+        new display::PclViewer(x, y, z, rot_axis_x, rot_axis_y, rot_axis_z));
+
 
     // Set up camera pos.
     // Eigen::Affine3d T_affine;
@@ -67,7 +67,7 @@ int main()
         cv::Mat kpt_3d_pos_in_world = R * kpt_3d_pos_in_cam + t;
 
         // Display
-        pcl_displayer->updateCameraPose(R_vec, t);
+        pcl_displayer->updateCameraPose(R_vec, t, false);
         // pcl_displayer->addPoint(kpt_3d_pos_in_world, r, g, b); // This function is deprecated
         pcl_displayer->update();
         pcl_displayer->spinOnce(150);

@@ -60,16 +60,19 @@ const bool IS_DEBUGGING = false;
 
 int main(int argc, char **argv)
 {
+    cout << "Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+    
     // -- Set configuration file
     assert(checkInputArguments(argc, argv));
     const string kConfigFile = argv[1];
+    cout << "Test 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
     basics::Yaml config(kConfigFile);              // Use Yaml to read .yaml
     basics::Config::setParameterFile(kConfigFile); // Use Config to read .yaml
     const string dataset_name = config.get<string>("dataset_name");
     basics::Yaml config_dataset = config.get(dataset_name);
     static const string output_folder = basics::Config::get<string>("output_folder");
     basics::makedirs(output_folder + "/");
-
+    
     // -- Read image filenames
     vector<string>
         image_paths;
@@ -88,6 +91,7 @@ int main(int argc, char **argv)
         const int num_images = config_dataset.get<int>("num_images");
         constexpr bool is_print_res = false;
         const string image_formatting = "/rgb_%05d.png";
+        //const string image_formatting = "/tastemade_%03d.png";
         image_paths = vo::readImagePaths(dataset_dir, num_images, image_formatting, is_print_res);
     }
 
