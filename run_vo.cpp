@@ -60,12 +60,11 @@ const bool IS_DEBUGGING = false;
 
 int main(int argc, char **argv)
 {
-    cout << "Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
     
     // -- Set configuration file
     assert(checkInputArguments(argc, argv));
     const string kConfigFile = argv[1];
-    cout << "Test 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+
     basics::Yaml config(kConfigFile);              // Use Yaml to read .yaml
     basics::Config::setParameterFile(kConfigFile); // Use Config to read .yaml
     const string dataset_name = config.get<string>("dataset_name");
@@ -103,7 +102,7 @@ int main(int argc, char **argv)
     // -- Prepare PCL and CV display
     display::PclViewer::Ptr pcl_displayer = setUpPclDisplay(); // PCL display
     cv::namedWindow(IMAGE_WINDOW_NAME, cv::WINDOW_AUTOSIZE);   // CV display
-    cv::moveWindow(IMAGE_WINDOW_NAME, 500, 50);
+    cv::moveWindow(IMAGE_WINDOW_NAME, 500, 250);
 
     // -- Setup for vo
     vo::VisualOdometry::Ptr vo(new vo::VisualOdometry);
