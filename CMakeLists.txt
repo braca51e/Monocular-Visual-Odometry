@@ -36,7 +36,7 @@ find_package( CSparse REQUIRED ) ## note!! if the csparse is not found, please i
 include_directories( ${G2O_INCLUDE_DIRS} )
 include_directories( ${CSPARSE_INCLUDE_DIR} )
 # PCL 
-find_package( PCL REQUIRED PATHS /home/luis/pcl-1.8.1/build) 
+find_package( PCL REQUIRED ) 
 include_directories( ${PCL_INCLUDE_DIRS} )
 add_definitions( ${PCL_DEFINITIONS} )
 
