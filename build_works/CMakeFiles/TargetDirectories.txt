@@ -1,0 +1,14 @@
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/CMakeFiles/rebuild_cache.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/CMakeFiles/run_vo.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/CMakeFiles/edit_cache.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/src/CMakeFiles/rebuild_cache.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/src/CMakeFiles/display.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/src/CMakeFiles/geometry.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/src/CMakeFiles/basics.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/src/CMakeFiles/optimization.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/src/CMakeFiles/vo.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/src/CMakeFiles/edit_cache.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/test/CMakeFiles/rebuild_cache.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/test/CMakeFiles/edit_cache.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/test/CMakeFiles/test_epipolor_geometry.dir
+/home/luis/Documents/myMono/Monocular-Visual-Odometry/build/test/CMakeFiles/test_pcl_display.dir
